@@ -13,31 +13,66 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const emp = axios.get('https://jsonplaceholder.typicode.com/posts')
+    const emp = axios.get('http://localhost:5000/')
       .then(res => {
-        console.log(res.data)
+        console.log(res.data.recordset)
+        this.setState({ employees: res.data.recordset })
       })
 
-    this.setState({ employees: emp })
+
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://jsonplaceholder.typicode.com/posts',
+    axios.post('http://localhost:5000/',
       {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
-        userId: 1
       }
     )
       .then(res => console.log('json', res.data))
     console.log('event', e)
   }
 
+  renderBody() {
+    const { employees } = this.state
+    console.log(employees)
+    if (employees.length === 0) {
+      return ''
+    } else {
+      return employees.map((emp, i) => {
+        return (
+          <tr key={i}>
+            <td>{i + 1}</td>
+            <td>{emp.firstName}</td>
+            <td>{emp.lastName}</td>
+          </tr>
+        )
+      })
+    }
+
+
+
+
+  }
+
 
   render() {
     return (
       <div >
+
+        <table>
+          <thead>
+            <tr>
+              <th>no</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.renderBody()}
+          </tbody>
+        </table>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="fname">First name:</label><br />
           <input

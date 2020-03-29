@@ -9,3 +9,8 @@ cd frontdemo && npm install
 step 3 
 
 npm start
+
+cd server && node server.js
+
+
+
