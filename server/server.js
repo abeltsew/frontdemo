@@ -57,6 +57,14 @@ app.post('/', (req, res) => {
     VALUES ('${stud.firstName}', '${stud.lastName}')`)
 })
 
+app.delete('/:id', (req, res) => {
+    console.log('delete', req.params)
+    var request = new sql.Request();
+
+    request.query(`DELETE FROM Student WHERE firstName ='${req.params.id}'`)
+
+})
+
 var server = app.listen(5000, function () {
     console.log('Server is running..');
 });

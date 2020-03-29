@@ -15,7 +15,6 @@ class App extends Component {
   componentDidMount() {
     const emp = axios.get('http://localhost:5000/')
       .then(res => {
-        console.log(res.data.recordset)
         this.setState({ employees: res.data.recordset })
       })
 
@@ -30,13 +29,17 @@ class App extends Component {
         lastName: this.state.lastName,
       }
     )
-      .then(res => console.log('json', res.data))
-    console.log('event', e)
+      .then(this.componentDidMount())
+
+  }
+
+  handleDelete(emp) {
+    axios.delete(`http://localhost:5000/${emp}`)
+      .then(this.componentDidMount())
   }
 
   renderBody() {
     const { employees } = this.state
-    console.log(employees)
     if (employees.length === 0) {
       return ''
     } else {
@@ -46,25 +49,22 @@ class App extends Component {
             <td>{i + 1}</td>
             <td>{emp.firstName}</td>
             <td>{emp.lastName}</td>
+            <td><button onClick={() => this.handleDelete(emp.firstName)}>Delete</button></td>
           </tr>
         )
       })
     }
-
-
-
-
   }
 
 
   render() {
     return (
       <div >
-
+        <h1>Student Record</h1>
         <table>
           <thead>
             <tr>
-              <th>no</th>
+              <th>#</th>
               <th>First Name</th>
               <th>Last Name</th>
             </tr>
@@ -73,6 +73,7 @@ class App extends Component {
             {this.renderBody()}
           </tbody>
         </table>
+        <h2>Add Record</h2>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="fname">First name:</label><br />
           <input
