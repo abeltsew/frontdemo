@@ -27,14 +27,14 @@ if (process.env.NODE_ENV === 'production') {
     var config = {
         user: 'sa',
         password: `${process.env.DB_PASSWORD}`, //database password here for sa
-        server: `${process.env.DB_PASSWORD}`,
+        server: `${process.env.DB_SERVER}`,
         database: 'SchoolDB'
     };
 
 } else {
     var config = {
         user: 'sa',
-        password: 'El$hu5ebe', //database password here for sa
+        password: 'password', //database password here for sa
         server: 'localhost',
         database: 'SchoolDB'
     };
