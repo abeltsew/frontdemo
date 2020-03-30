@@ -29,7 +29,12 @@ class App extends Component {
         lastName: this.state.lastName,
       }
     )
-      .then(this.componentDidMount())
+      .then(this.componentDidMount()
+
+      ).then(this.setState({
+        firstName: '',
+        lastName: ''
+      }))
 
   }
 

@@ -18,7 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "dev": "concurrently \"cd server && node server.js\" \"npm start\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
